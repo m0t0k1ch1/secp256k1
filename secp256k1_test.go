@@ -130,10 +130,22 @@ func TestScalarBaseMult(t *testing.T) {
 		y    string
 	}{
 		{
+			"k: nil",
+			"nil",
+			"0",
+			"0",
+		},
+		{
+			"k: 0",
+			"0",
+			"0",
+			"0",
+		},
+		{
 			"k: 1",
 			"1",
-			"79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798",
-			"483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8",
+			gx,
+			gy,
 		},
 		{
 			"k: 2",
@@ -441,18 +453,36 @@ func TestScalarBaseMult(t *testing.T) {
 			"c8ab03a9588097bab4bfbfdb953588ff9aae6e2517484dc2552df5c8fc626da2",
 			"bdec2840464e033aa4d9eeaca893b2786f1d1d4d7e02027dc70b2802aac67566",
 		},
+		{
+			"k: n",
+			"115792089237316195423570985008687907852837564279074904382605163141518161494337",
+			"0",
+			"0",
+		},
+		{
+			"k: n + 1",
+			"115792089237316195423570985008687907852837564279074904382605163141518161494338",
+			gx,
+			gy,
+		},
 	}
 
 	s256 := S256()
-	k, xExpected, yExpected := new(big.Int), new(big.Int), new(big.Int)
+	var k []byte
+	kTmp, xExpected, yExpected := new(big.Int), new(big.Int), new(big.Int)
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			k.SetString(tc.k, 10)
+			if tc.k == "nil" {
+				k = nil
+			} else {
+				kTmp.SetString(tc.k, 10)
+				k = kTmp.Bytes()
+			}
 			xExpected.SetString(tc.x, 16)
 			yExpected.SetString(tc.y, 16)
 
-			x, y := s256.ScalarBaseMult(k.Bytes())
+			x, y := s256.ScalarBaseMult(k)
 			if x.Cmp(xExpected) != 0 {
 				t.Errorf("expected: %x, actual: %x", xExpected, x)
 			}
