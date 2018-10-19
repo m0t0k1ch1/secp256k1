@@ -87,6 +87,41 @@ func TestAdd(t *testing.T) {
 	}
 }
 
+func TestDouble(t *testing.T) {
+	testCases := []struct {
+		name   string
+		x1, y1 string
+		x3, y3 string
+	}{
+		{
+			"(x1, y1) is point at infinity",
+			"0", "0",
+			"0", "0",
+		},
+	}
+
+	s256 := S256()
+	x1, y1 := new(big.Int), new(big.Int)
+	x3Expected, y3Expected := new(big.Int), new(big.Int)
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			x1.SetString(tc.x1, 16)
+			y1.SetString(tc.y1, 16)
+			x3Expected.SetString(tc.x3, 16)
+			y3Expected.SetString(tc.y3, 16)
+
+			x3, y3 := s256.Double(x1, y1)
+			if x3.Cmp(x3Expected) != 0 {
+				t.Errorf("expected: %x, actual: %x", x3Expected, x3)
+			}
+			if y3.Cmp(y3Expected) != 0 {
+				t.Errorf("expected: %x, actual: %x", y3Expected, y3)
+			}
+		})
+	}
+}
+
 func TestScalarBaseMult(t *testing.T) {
 	testCases := []struct {
 		name string
