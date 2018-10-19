@@ -5,21 +5,21 @@ import (
 	"testing"
 )
 
-func TestFromHexToBigInt(t *testing.T) {
+func TestHexToBigInt(t *testing.T) {
 	expected := new(big.Int).SetInt64(81985529216486895)
 
-	actual := fromHexToBigInt("0123456789abcdef")
+	actual := hexToBigInt("0123456789abcdef")
 	if actual.Cmp(expected) != 0 {
 		t.Errorf("expected: %x, actual: %x", expected, actual)
 	}
 }
 
-func TestFromHexToBigInt_panic(t *testing.T) {
+func TestHexToBigInt_panic(t *testing.T) {
 	defer func() {
 		if r := recover(); r == nil {
 			t.Errorf("no panic")
 		}
 	}()
 
-	fromHexToBigInt("0123456789abcdefg")
+	hexToBigInt("0123456789abcdefg")
 }

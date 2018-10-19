@@ -7,11 +7,11 @@ import (
 
 func TestCurveParams_Params(t *testing.T) {
 	s256 := S256()
-	pExpected := fromHexToBigInt(p)
-	nExpected := fromHexToBigInt(n)
-	bExpected := fromHexToBigInt(b)
-	gxExpected := fromHexToBigInt(gx)
-	gyExpected := fromHexToBigInt(gy)
+	pExpected := hexToBigInt(p)
+	nExpected := hexToBigInt(n)
+	bExpected := hexToBigInt(b)
+	gxExpected := hexToBigInt(gx)
+	gyExpected := hexToBigInt(gy)
 	bitSizeExpected := bitSize
 
 	params := s256.Params()

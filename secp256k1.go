@@ -281,11 +281,11 @@ var (
 
 func initS256() {
 	secp256k1 = &CurveParams{Name: "secp256k1"}
-	secp256k1.P = fromHexToBigInt(p)
-	secp256k1.N = fromHexToBigInt(n)
-	secp256k1.B = fromHexToBigInt(b)
-	secp256k1.Gx = fromHexToBigInt(gx)
-	secp256k1.Gy = fromHexToBigInt(gy)
+	secp256k1.P = hexToBigInt(p)
+	secp256k1.N = hexToBigInt(n)
+	secp256k1.B = hexToBigInt(b)
+	secp256k1.Gx = hexToBigInt(gx)
+	secp256k1.Gy = hexToBigInt(gy)
 	secp256k1.BitSize = bitSize
 }
 
