@@ -58,14 +58,18 @@ func (curve *CurveParams) affineFromJacobian(x, y, z *big.Int) (xA, yA *big.Int)
 	// 1/Z^1
 	zInv := new(big.Int).ModInverse(z, curve.P)
 
+	// 1/Z^2
+	zzInv := new(big.Int).Mul(zInv, zInv)
+
+	// 1/Z^3
+	zzzInv := new(big.Int).Mul(zzInv, zInv)
+
 	// x = X/Z^2
-	tmp := new(big.Int).Mul(zInv, zInv)
-	xA = new(big.Int).Mul(x, tmp)
+	xA = new(big.Int).Mul(x, zzInv)
 	xA.Mod(xA, curve.P)
 
 	// y = Y/Z^3
-	tmp.Mul(tmp, zInv)
-	yA = new(big.Int).Mul(y, tmp)
+	yA = new(big.Int).Mul(y, zzzInv)
 	yA.Mod(yA, curve.P)
 
 	return
