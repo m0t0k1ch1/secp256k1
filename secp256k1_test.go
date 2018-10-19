@@ -5,6 +5,36 @@ import (
 	"testing"
 )
 
+func TestParams(t *testing.T) {
+	s256 := S256()
+	pExpected := fromHexToBigInt(p)
+	nExpected := fromHexToBigInt(n)
+	bExpected := fromHexToBigInt(b)
+	gxExpected := fromHexToBigInt(gx)
+	gyExpected := fromHexToBigInt(gy)
+	bitSizeExpected := bitSize
+
+	params := s256.Params()
+	if params.P.Cmp(pExpected) != 0 {
+		t.Errorf("expected: %x, actual: %x", pExpected, params.P)
+	}
+	if params.N.Cmp(nExpected) != 0 {
+		t.Errorf("expected: %x, actual: %x", nExpected, params.N)
+	}
+	if params.B.Cmp(bExpected) != 0 {
+		t.Errorf("expected: %x, actual: %x", bExpected, params.B)
+	}
+	if params.Gx.Cmp(gxExpected) != 0 {
+		t.Errorf("expected: %x, actual: %x", gxExpected, params.Gx)
+	}
+	if params.Gy.Cmp(gyExpected) != 0 {
+		t.Errorf("expected: %x, actual: %x", gyExpected, params.Gy)
+	}
+	if params.BitSize != bitSizeExpected {
+		t.Errorf("expected: %d, actual: %d", bitSizeExpected, params.BitSize)
+	}
+}
+
 func TestIsOnCurve(t *testing.T) {
 	testCases := []struct {
 		name string
