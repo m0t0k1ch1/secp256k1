@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestParams(t *testing.T) {
+func TestCurveParams_Params(t *testing.T) {
 	s256 := S256()
 	pExpected := fromHexToBigInt(p)
 	nExpected := fromHexToBigInt(n)
@@ -71,7 +71,7 @@ func TestIsOnCurve(t *testing.T) {
 	}
 }
 
-func TestAdd(t *testing.T) {
+func TestCurveParams_Add(t *testing.T) {
 	testCases := []struct {
 		name   string
 		x1, y1 string
@@ -124,7 +124,7 @@ func TestAdd(t *testing.T) {
 	}
 }
 
-func TestDouble(t *testing.T) {
+func TestCurveParams_Double(t *testing.T) {
 	testCases := []struct {
 		name   string
 		x1, y1 string
@@ -159,7 +159,7 @@ func TestDouble(t *testing.T) {
 	}
 }
 
-func TestScalarBaseMult(t *testing.T) {
+func TestCurveParams_ScalarBaseMult(t *testing.T) {
 	testCases := []struct {
 		name string
 		k    string
