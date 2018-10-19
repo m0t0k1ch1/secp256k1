@@ -90,6 +90,13 @@ func TestAdd(t *testing.T) {
 			"0", "0",
 			gx, gy,
 		},
+		{
+			"same points",
+			gx, gy,
+			gx, gy,
+			"c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5",
+			"1ae168fea63dc339a3c58419466ceaeef7f632653266d0e1236431a950cfe52a",
+		},
 	}
 
 	s256 := S256()
