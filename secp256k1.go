@@ -273,14 +273,6 @@ const (
 var initonce sync.Once
 var secp256k1 *CurveParams
 
-func fromHexToBigInt(s string) *big.Int {
-	i, ok := new(big.Int).SetString(s, 16)
-	if !ok {
-		panic("invalid hex : " + s)
-	}
-	return i
-}
-
 func initS256() {
 	secp256k1 = &CurveParams{Name: "secp256k1"}
 	secp256k1.P = fromHexToBigInt(p)
