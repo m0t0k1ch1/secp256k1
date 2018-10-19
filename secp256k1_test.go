@@ -49,13 +49,13 @@ func TestAdd(t *testing.T) {
 		x3, y3 string
 	}{
 		{
-			"(x1, y1) is point at infinity in affine coordinates",
+			"(x1, y1) is point at infinity",
 			"0", "0",
 			gx, gy,
 			gx, gy,
 		},
 		{
-			"(x2, y2) is point at infinity in affine coordinates",
+			"(x2, y2) is point at infinity",
 			gx, gy,
 			"0", "0",
 			gx, gy,
