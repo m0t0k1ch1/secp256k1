@@ -5,6 +5,42 @@ import (
 	"testing"
 )
 
+func TestIsOnCurve(t *testing.T) {
+	testCases := []struct {
+		name string
+		x    string
+		y    string
+		ok   bool
+	}{
+		{
+			"base point",
+			gx,
+			gy,
+			true,
+		},
+		{
+			"not on curve",
+			"0000000000000000000000000000000000000000000000000000000000000001",
+			"0000000000000000000000000000000000000000000000000000000000000001",
+			false,
+		},
+	}
+
+	s256 := S256()
+	x, y := new(big.Int), new(big.Int)
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			x.SetString(tc.x, 16)
+			y.SetString(tc.y, 16)
+
+			if ok := s256.IsOnCurve(x, y); ok != tc.ok {
+				t.Errorf("expected: %t, actual: %t", tc.ok, ok)
+			}
+		})
+	}
+}
+
 func TestScalarBaseMult(t *testing.T) {
 	testCases := []struct {
 		name string
