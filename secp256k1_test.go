@@ -41,6 +41,52 @@ func TestIsOnCurve(t *testing.T) {
 	}
 }
 
+func TestAdd(t *testing.T) {
+	testCases := []struct {
+		name   string
+		x1, y1 string
+		x2, y2 string
+		x3, y3 string
+	}{
+		{
+			"(x1, y1) is point at infinity in affine coordinates",
+			"0", "0",
+			gx, gy,
+			gx, gy,
+		},
+		{
+			"(x2, y2) is point at infinity in affine coordinates",
+			gx, gy,
+			"0", "0",
+			gx, gy,
+		},
+	}
+
+	s256 := S256()
+	x1, y1 := new(big.Int), new(big.Int)
+	x2, y2 := new(big.Int), new(big.Int)
+	x3Expected, y3Expected := new(big.Int), new(big.Int)
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			x1.SetString(tc.x1, 16)
+			y1.SetString(tc.y1, 16)
+			x2.SetString(tc.x2, 16)
+			y2.SetString(tc.y2, 16)
+			x3Expected.SetString(tc.x3, 16)
+			y3Expected.SetString(tc.y3, 16)
+
+			x3, y3 := s256.Add(x1, y1, x2, y2)
+			if x3.Cmp(x3Expected) != 0 {
+				t.Errorf("expected: %x, actual: %x", x3Expected, x3)
+			}
+			if y3.Cmp(y3Expected) != 0 {
+				t.Errorf("expected: %x, actual: %x", y3Expected, y3)
+			}
+		})
+	}
+}
+
 func TestScalarBaseMult(t *testing.T) {
 	testCases := []struct {
 		name string
