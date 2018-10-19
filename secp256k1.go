@@ -274,8 +274,10 @@ const (
 	bitSize = 256
 )
 
-var initonce sync.Once
-var secp256k1 *CurveParams
+var (
+	initonce  sync.Once
+	secp256k1 *CurveParams
+)
 
 func initS256() {
 	secp256k1 = &CurveParams{Name: "secp256k1"}
