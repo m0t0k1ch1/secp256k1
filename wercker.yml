@@ -49,9 +49,3 @@ build:
         name: run codecov
         code: |
           bash <(curl -s https://codecov.io/bash)
-
-  after-steps:
-
-    # Post the result to Slack
-    - slack-notifier:
-        url: $SLACK_URL
